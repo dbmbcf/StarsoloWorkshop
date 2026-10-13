@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Florian Geier (florian.geier@unibas.ch), Igor Cervenka (igor.cervenka@unibas.ch)">
-<meta name="dcterms.date" content="2026-10-12">
+<meta name="dcterms.date" content="2026-10-13">
 
 <title>BCF STARsolo workflow</title>
 <style>
@@ -2212,12 +2212,7 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#why-workflow-managers" id="toc-why-workflow-managers" class="nav-link" data-scroll-target="#why-workflow-managers">Why workflow managers?</a></li>
-  <li><a href="#what-is-snakemake" id="toc-what-is-snakemake" class="nav-link" data-scroll-target="#what-is-snakemake">What is Snakemake?</a></li>
-  <li><a href="#how-to-get-it" id="toc-how-to-get-it" class="nav-link" data-scroll-target="#how-to-get-it">How to get it?</a></li>
-  </ul></li>
+  <li><a href="#snakemake" id="toc-snakemake" class="nav-link active" data-scroll-target="#snakemake">Snakemake</a></li>
   <li><a href="#bcf-workflows" id="toc-bcf-workflows" class="nav-link" data-scroll-target="#bcf-workflows">BCF workflows</a>
   <ul class="collapse">
   <li><a href="#how-to-get-them" id="toc-how-to-get-them" class="nav-link" data-scroll-target="#how-to-get-them">How to get them?</a></li>
@@ -2297,7 +2292,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 12, 2026</p>
+      <p class="date">October 13, 2026</p>
     </div>
   </div>
   
@@ -2309,104 +2304,12 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<section id="why-workflow-managers" class="level2">
-<h2 class="anchored" data-anchor-id="why-workflow-managers">Why workflow managers?</h2>
-<p>Specialized analysis vs. <strong>repetitive analysis across projects/over time</strong></p>
+<section id="snakemake" class="level1">
+<h1>Snakemake</h1>
 <ul>
-<li>Avoid redundancy: when adding data sets and/or when resuming from failures</li>
-<li>Handle parallelization: execute for tens to thousands of data sets</li>
-<li>Work reproducible: formalized the workflow, include tool versioning and possibly deployment</li>
+<li><p><a href="https://snakemake.readthedocs.io/en/stable/index.html">Snakemake</a> is a python based workflow tool</p></li>
+<li><p>If you are new to Snakemake take a look at our <a href="https://htmlpreview.github.io/?https://github.com/dbmbcf/SnakemakeTutorial/blob/gh-pages/index.html">tutorial</a></p></li>
 </ul>
-</section>
-<section id="what-is-snakemake" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-snakemake">What is Snakemake?</h2>
-<ul>
-<li><a href="https://snakemake.readthedocs.io/en/stable/index.html">Snakemake</a> is a python based workflow tool inspired by <a href="https://www.gnu.org/software/make/">GNU make</a> but with significant enhancements:
-<ul>
-<li>Highly readable mini-language</li>
-<li>Adaptable due to modular organization: rules, wrappers, sub-workflows</li>
-<li>Extended support for many scripting languages (bash, R, markdown etc.)</li>
-<li>Clever job scheduling</li>
-<li>Scaleable to different computational resources: server, cluster and cloud</li>
-<li>Portable by self-contained management of software stack via conda</li>
-</ul></li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This workshop focuses on <strong>using</strong> a ready-made workflow. For an introduction into <strong>writing</strong> Snakemake workflows (rules, wildcards, input functions, conda environments, profiles) see our previous tutorial “Introduction to Snakemake”.</p>
-</div>
-</div>
-</section>
-<section id="how-to-get-it" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-get-it">How to get it?</h2>
-<ul>
-<li><p>Pre-requisite: get conda via miniforge <a href="https://github.com/conda-forge/miniforge">https://github.com/conda-forge/miniforge</a> and follow the installation instructions.</p></li>
-<li><p>Set up a conda configuration file (<code>$HOME/.condarc</code>), listing the following channel order to pick packages from:</p></li>
-</ul>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>.condarc</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">channels</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> conda-forge</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> bioconda</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">channel_priority</span><span class="kw">:</span><span class="at"> strict</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">auto_activate</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co"> # don&#39;t activate base environment by default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Don’t use the proprietary Anaconda (<code>defaults</code>) channel</li>
-<li>Use strict channel priority to enhance reproducibility of software environments</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Which snakemake version shall I use?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Snakemake is actively developed with new minor versions changes within hours or days. Major updates involve breaking changes, while minor changes fix bugs and enhance features. In this tutorial we assume version 9.27 i.e. the last release of major version 9.</p>
-</div>
-</div>
-<ul>
-<li>Use conda to install snakemake:</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> snakemake_9 snakemake=9.27</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ul>
-<li>Now, activate the environment with:</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate snakemake_9</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
 </section>
 <section id="bcf-workflows" class="level1">
 <h1>BCF workflows</h1>
@@ -2422,12 +2325,12 @@ Important
 <li><p>Once you have access, clone a specific workflow into your <strong>project folder</strong> (not your home, the workflow produces a lot of data!). Each analysis gets its own clone of the workflow:</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scicore/projects/<span class="op">&lt;</span>my_project<span class="op">&gt;</span>/</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">## via ssh (requires a ssh key registered in GitLab)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone ssh://git@git.scicore.unibas.ch:2222/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">## or via https</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.scicore.unibas.ch/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scicore/projects/<span class="op">&lt;</span>my_project<span class="op">&gt;</span>/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">## via ssh (requires a ssh key registered in GitLab)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone ssh://git@git.scicore.unibas.ch:2222/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">## or via https</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.scicore.unibas.ch/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <!-- TODO: decide which branch/tag users should check out (currently `public_dev` is checked out locally, `main` is the remote HEAD) -->
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2447,18 +2350,18 @@ Tip
 <section id="repository-structure" class="level2">
 <h2 class="anchored" data-anchor-id="repository-structure">Repository structure</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">starsolo_mapping_workflow/</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> config/</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── defaults.yaml        <span class="co"># default tool settings - don&#39;t change</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── config.yaml          <span class="co"># YOUR project configuration (to be created)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                    <span class="co"># detailed documentation (markdown)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> schemas/                 <span class="co"># validation of config, sample sheet and hashtag file</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> workflow/</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Snakefile            <span class="co"># main entry point, rule `all`</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── rules/<span class="pp">*</span>.smk          <span class="co"># rules grouped by step</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── scripts/             <span class="co"># R and python scripts called by the rules</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── envs/<span class="pp">*</span>.yaml          <span class="co"># conda environment per tool</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> README.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">starsolo_mapping_workflow/</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> config/</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── defaults.yaml        <span class="co"># default tool settings - don&#39;t change</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── config.yaml          <span class="co"># YOUR project configuration (to be created)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                    <span class="co"># detailed documentation (markdown)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> schemas/                 <span class="co"># validation of config, sample sheet and hashtag file</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> workflow/</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── Snakefile            <span class="co"># main entry point, rule `all`</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── rules/<span class="pp">*</span>.smk          <span class="co"># rules grouped by step</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── scripts/             <span class="co"># R and python scripts called by the rules</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── envs/<span class="pp">*</span>.yaml          <span class="co"># conda environment per tool</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> README.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2485,7 +2388,15 @@ Important
 <li>The barcode/UMI geometry is fully configurable, i.e. it is not restricted to 10x Genomics protocols</li>
 <li>Several count types (exonic, full gene body, spliced/unspliced) can be produced in one run</li>
 </ul></li>
-<li><p>On top of STARsolo, the workflow adds steps that are needed in most of our projects: cell hashing and antibody (CITE-seq) quantification, sample demultiplexing by hashtags, sample barcodes or genotypes (SNPs), and joining all samples into one object.</p></li>
+<li><p>On top of STARsolo, the workflow adds steps that are needed in most of our projects:</p>
+<ul>
+<li>Additional read pre-processing capabilities</li>
+<li>cell hashing and antibody (CITE-seq) quantification</li>
+<li>sample demultiplexing by hashtags, sample barcodes or genotypes (SNPs)</li>
+<li>detection of empty droplets</li>
+<li>joining all samples into one <a href="https://bioconductor.org/packages/3.23/bioc/html/SingleCellExperiment.html">SingleCellExperiment</a> object</li>
+</ul></li>
+<li><p>Downstream analysis like dimensionality reduction, clustering or cell type annotation isn’t part of the workflow, but we provide a <a href="ssh://git@git.scicore.unibas.ch:2222/DBM_bioinfo/ivanek/r_shiny/sce_processing_rmd_workflow.git">notebook template</a> for these steps operating on SingleCellExperiment objects</p></li>
 </ul>
 <section id="features" class="level2">
 <h2 class="anchored" data-anchor-id="features">Features</h2>
@@ -2817,8 +2728,8 @@ Important
 <li><p>The docs are also set up as a <a href="https://www.mkdocs.org/">MkDocs</a> site, which you can browse locally:</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install mkdocs</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkdocs</span> serve <span class="co"># open http://127.0.0.1:8000 in your browser</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install mkdocs</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkdocs</span> serve <span class="co"># open http://127.0.0.1:8000 in your browser</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>The STARsolo options themselves are documented in the <a href="https://github.com/alexdobin/STAR/blob/master/docs/STARsolo.md">STARsolo docs</a> and the <a href="https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf">STAR manual</a>.</li>
@@ -2908,8 +2819,8 @@ Important
 <li>For data sequenced by the Genomics Facility Basel (GFB) the script <code>flowcell2samples.py</code> collects the FASTQ files and their metadata from the openBIS userstore (<code>/scicore/projects/openbis/userstore/</code>):</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/flowcell2samples.py <span class="op">&lt;</span>FLOWCELL_ID<span class="op">&gt;</span> [<span class="op">&lt;</span>FLOWCELL_ID_2<span class="op">&gt;</span> ...] <span class="at">-g</span> <span class="op">&lt;</span>group<span class="op">&gt;</span> -o samples.txt</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. &lt;group&gt; = dbm_&lt;groupname&gt; or biozentrum_&lt;groupname&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/flowcell2samples.py <span class="op">&lt;</span>FLOWCELL_ID<span class="op">&gt;</span> [<span class="op">&lt;</span>FLOWCELL_ID_2<span class="op">&gt;</span> ...] <span class="at">-g</span> <span class="op">&lt;</span>group<span class="op">&gt;</span> -o samples.txt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. &lt;group&gt; = dbm_&lt;groupname&gt; or biozentrum_&lt;groupname&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>The output contains the columns <code>FileName1</code>, <code>FileName2</code>, <code>FileSizeGB1</code>, <code>FileSizeGB2</code>, <code>SampleName</code>, <code>ExternalSampleName</code>, <code>FlowcellID</code>, <code>SampleType</code>, <code>Kit</code>, <code>NCycles</code>, <code>Species</code>, <code>ContactPerson</code>. It has to be cleaned up and <code>SampleGroup</code> has to be added, e.g. in R:</li>
@@ -2919,11 +2830,11 @@ Important
 <div class="code-with-filename-file">
 <pre><strong>make_sample_sheet.R</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;samples.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">quote =</span> <span class="st">&#39;&quot;&#39;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">$</span>SampleGroup <span class="ot">&lt;-</span> <span class="st">&quot;ctrl&quot;</span> <span class="co"># add the real grouping here</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only columns that are constant per sample</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sf <span class="ot">&lt;-</span> sf[, <span class="fu">c</span>(<span class="st">&quot;FileName1&quot;</span>, <span class="st">&quot;FileName2&quot;</span>, <span class="st">&quot;SampleName&quot;</span>, <span class="st">&quot;ExternalSampleName&quot;</span>, <span class="st">&quot;SampleGroup&quot;</span>)]</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(sf, <span class="at">file =</span> <span class="st">&quot;samples.tsv&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;samples.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">quote =</span> <span class="st">&#39;&quot;&#39;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">$</span>SampleGroup <span class="ot">&lt;-</span> <span class="st">&quot;ctrl&quot;</span> <span class="co"># add the real grouping here</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only columns that are constant per sample</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sf <span class="ot">&lt;-</span> sf[, <span class="fu">c</span>(<span class="st">&quot;FileName1&quot;</span>, <span class="st">&quot;FileName2&quot;</span>, <span class="st">&quot;SampleName&quot;</span>, <span class="st">&quot;ExternalSampleName&quot;</span>, <span class="st">&quot;SampleGroup&quot;</span>)]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(sf, <span class="at">file =</span> <span class="st">&quot;samples.tsv&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -2972,9 +2883,9 @@ CAACGCCTAGAAACC CD150   ADT</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hto_per_sample</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">GFB_1001</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&#39;hashtag1&#39;</span><span class="kw">,</span><span class="at"> </span><span class="st">&#39;hashtag2&#39;</span><span class="kw">]</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">GFB_1002</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hto_per_sample</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">GFB_1001</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&#39;hashtag1&#39;</span><span class="kw">,</span><span class="at"> </span><span class="st">&#39;hashtag2&#39;</span><span class="kw">]</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">GFB_1002</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -2985,10 +2896,10 @@ CAACGCCTAGAAACC CD150   ADT</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_HTO</span><span class="kw">:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_nmads</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">       # LogFC2 must be doublet_nmads MADs above the median</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_min</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span><span class="co">         # AND LogFC2 greater than doublet_min</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_mixture</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co"> # alternatively: 2-component mixture model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_HTO</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_nmads</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">       # LogFC2 must be doublet_nmads MADs above the median</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_min</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span><span class="co">         # AND LogFC2 greater than doublet_min</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">doublet_mixture</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co"> # alternatively: 2-component mixture model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3051,10 +2962,10 @@ CAACGCCTAGAAACC CD150   ADT</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3065,11 +2976,11 @@ CAACGCCTAGAAACC CD150   ADT</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fasta</span><span class="kw">:</span><span class="at"> &lt;path/to/hg38.fa&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> &lt;path/to/hg38.gtf&gt;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">chrom_in_use</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">chr1</span><span class="kw">,</span><span class="at"> chr2</span><span class="kw">,</span><span class="at"> ...</span><span class="kw">]</span><span class="co"> # optional: subset, e.g. without haplotypes and unplaced contigs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fasta</span><span class="kw">:</span><span class="at"> &lt;path/to/hg38.fa&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> &lt;path/to/hg38.gtf&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">chrom_in_use</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">chr1</span><span class="kw">,</span><span class="at"> chr2</span><span class="kw">,</span><span class="at"> ...</span><span class="kw">]</span><span class="co"> # optional: subset, e.g. without haplotypes and unplaced contigs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3105,12 +3016,12 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;file or list of files&gt;</span><span class="co">  # required, one file per cell barcode segment</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">translation</span><span class="kw">:</span><span class="at"> &lt;file&gt;</span><span class="co">                 # optional, ADT/HTO with 10x v3 + TotalSeq B/C</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span><span class="co">                            # optional, sample barcodes</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span><span class="co">                      # flex | parse | lists</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> &lt;file&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;file or list of files&gt;</span><span class="co">  # required, one file per cell barcode segment</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">translation</span><span class="kw">:</span><span class="at"> &lt;file&gt;</span><span class="co">                 # optional, ADT/HTO with 10x v3 + TotalSeq B/C</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span><span class="co">                            # optional, sample barcodes</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span><span class="co">                      # flex | parse | lists</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> &lt;file&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3146,7 +3057,7 @@ Note
 <li>Cell Ranger installations on sciCORE: <code>/scicore/home/ivanek/GROUP/apps/cellranger-&lt;version&gt;/</code>. List the available whitelists with:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Settings under <code>barcodes:</code> apply to all sequence types. A block named after a sequence type (<code>GEX</code>, <code>ADT</code>, <code>HTO</code>, <code>ADT+HTO</code>) overrides them for that type only (e.g. a different sample barcode file for a Flex antibody library).</li>
@@ -3162,10 +3073,10 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> GeneFull Gene SJ Velocyto</span><span class="co"> # first feature = primary assay counts(sce)</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co">                  # False removes a default option</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> GeneFull Gene SJ Velocyto</span><span class="co"> # first feature = primary assay counts(sce)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co">                  # False removes a default option</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3237,12 +3148,12 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty_droplets</span><span class="kw">:</span><span class="at"> empty_drops</span><span class="co"> # alternatively: barcode_ranks (knee point) or cellranger</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">empty_droplets_options</span><span class="kw">:</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">empty_drops</span><span class="kw">:</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">umi</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span><span class="co">      # droplets at or below are considered empty</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fdr</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.001</span><span class="co">    # FDR threshold to call a cell</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_empty_droplets</span><span class="kw">:</span><span class="at"> empty_drops</span><span class="co"> # alternatively: barcode_ranks (knee point) or cellranger</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">empty_droplets_options</span><span class="kw">:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">empty_drops</span><span class="kw">:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">umi</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span><span class="co">      # droplets at or below are considered empty</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fdr</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.001</span><span class="co">    # FDR threshold to call a cell</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3272,10 +3183,10 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_cDNA_ADT+HTO</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trim_front1</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co"> # remove the first 10 bases</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_len1</span><span class="kw">:</span><span class="at"> </span><span class="dv">15</span><span class="co">    # then keep 15 bases (= tag length)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_cDNA_ADT+HTO</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trim_front1</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co"> # remove the first 10 bases</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_len1</span><span class="kw">:</span><span class="at"> </span><span class="dv">15</span><span class="co">    # then keep 15 bases (= tag length)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -3289,16 +3200,16 @@ Note
 <li>Always start with a dry-run. It validates the config and sample sheet and shows which jobs would be executed:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate snakemake_9</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate snakemake_9</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-n</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Visualize the workflow:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--rulegraph</span> <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpdf</span> <span class="op">&gt;</span> rulegraph.pdf <span class="co"># rules only</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--dag</span> <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpdf</span> <span class="op">&gt;</span> dag.pdf             <span class="co"># all jobs (large for many samples!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--rulegraph</span> <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpdf</span> <span class="op">&gt;</span> rulegraph.pdf <span class="co"># rules only</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--dag</span> <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpdf</span> <span class="op">&gt;</span> dag.pdf             <span class="co"># all jobs (large for many samples!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="create-the-conda-environments" class="level2">
@@ -3307,7 +3218,7 @@ Note
 <li>Cluster nodes don’t have internet access, therefore the conda environments have to be created first (on the login node). Using a shared <code>--conda-prefix</code> allows to reuse the environments across projects:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--sdm</span> conda <span class="at">--conda-create-envs-only</span> <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--sdm</span> conda <span class="at">--conda-create-envs-only</span> <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="run-snakemake-on-scicore-slurm-cluster" class="level2">
@@ -3323,7 +3234,7 @@ Note
 <li><p>When installed under <code>$HOME/.config/snakemake</code>, Snakemake can be invoked using the profile:</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--profile</span> scicore-slurm <span class="at">--sdm</span> conda <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--profile</span> scicore-slurm <span class="at">--sdm</span> conda <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -3341,8 +3252,8 @@ Tip
 <li>You can request intermediate targets, e.g. map all samples and check the mapping QC before the rest of the workflow is run:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--profile</span> scicore-slurm <span class="at">--sdm</span> conda <span class="at">--conda-prefix</span> ~/snakemake_environments <span class="dt">\</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  results/STARsolo/GEX_mapping_counting_stats.pdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--profile</span> scicore-slurm <span class="at">--sdm</span> conda <span class="at">--conda-prefix</span> ~/snakemake_environments <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  results/STARsolo/GEX_mapping_counting_stats.pdf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -3406,32 +3317,32 @@ Important
 <section id="outputs" class="level2">
 <h2 class="anchored" data-anchor-id="outputs">Outputs</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">results/</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> STARsolo/</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── <span class="op">&lt;</span>sample<span class="op">&gt;</span>/<span class="op">&lt;</span>stype<span class="op">&gt;</span>/                  <span class="co"># BAM (+ bai, flagstats, idxstats), Log.final.out, Solo.out/</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── <span class="op">&lt;</span>stype<span class="op">&gt;</span>_mapping_counting_stats.pdf <span class="co"># mapping/counting QC across samples</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> create_sce/<span class="op">&lt;</span>sample<span class="op">&gt;</span>/<span class="op">&lt;</span>tag<span class="op">&gt;</span>_sce.rds      <span class="co"># unfiltered SCE per sample</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> empty_drops/                           <span class="co"># filtered SCE + stats per sample, &lt;tag&gt;_qc.pdf</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> demultiplex_HTO/                       <span class="co"># (optional) &lt;tag&gt;_qc.pdf</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> demultiplex_SNP/                       <span class="co"># (optional) cluster_genotypes.{csv,pdf}</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> join_sce/</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> <span class="op">&lt;</span>tag<span class="op">&gt;</span>_sce.rds                      <span class="co"># FINAL OBJECT: all samples, empty droplets removed</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> <span class="op">&lt;</span>tag<span class="op">&gt;</span>_qc.pdf                       <span class="co"># cells and UMIs per sample</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="ex">resources/</span><span class="op">&lt;</span>genome<span class="op">&gt;</span>/                        <span class="co"># genome FASTA/GTF/STAR index (if built by the workflow)</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="ex">logs/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">results/</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> STARsolo/</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── <span class="op">&lt;</span>sample<span class="op">&gt;</span>/<span class="op">&lt;</span>stype<span class="op">&gt;</span>/                  <span class="co"># BAM (+ bai, flagstats, idxstats), Log.final.out, Solo.out/</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── <span class="op">&lt;</span>stype<span class="op">&gt;</span>_mapping_counting_stats.pdf <span class="co"># mapping/counting QC across samples</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> create_sce/<span class="op">&lt;</span>sample<span class="op">&gt;</span>/<span class="op">&lt;</span>tag<span class="op">&gt;</span>_sce.rds      <span class="co"># unfiltered SCE per sample</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> empty_drops/                           <span class="co"># filtered SCE + stats per sample, &lt;tag&gt;_qc.pdf</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> demultiplex_HTO/                       <span class="co"># (optional) &lt;tag&gt;_qc.pdf</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> demultiplex_SNP/                       <span class="co"># (optional) cluster_genotypes.{csv,pdf}</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> join_sce/</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> <span class="op">&lt;</span>tag<span class="op">&gt;</span>_sce.rds                      <span class="co"># FINAL OBJECT: all samples, empty droplets removed</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> <span class="op">&lt;</span>tag<span class="op">&gt;</span>_qc.pdf                       <span class="co"># cells and UMIs per sample</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="ex">resources/</span><span class="op">&lt;</span>genome<span class="op">&gt;</span>/                        <span class="co"># genome FASTA/GTF/STAR index (if built by the workflow)</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="ex">logs/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>The final object can be loaded in R:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SingleCellExperiment)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;results/join_sce/hg38_ensdb112_sce.rds&quot;</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sce</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">assayNames</span>(sce)               <span class="co"># e.g. counts (= Gene), GeneFull, spliced, unspliced</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span>(sce)<span class="sc">$</span>primary_assay   <span class="co"># which soloFeature is in counts(sce)</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">altExpNames</span>(sce)              <span class="co"># ADT/HTO if present</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sce<span class="sc">$</span>SampleName)         <span class="co"># cells per sample</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">rowData</span>(sce))            <span class="co"># GENEID, SYMBOL, uniqueSymbol, ... + ambient profile per sample</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SingleCellExperiment)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;results/join_sce/hg38_ensdb112_sce.rds&quot;</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>sce</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">assayNames</span>(sce)               <span class="co"># e.g. counts (= Gene), GeneFull, spliced, unspliced</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span>(sce)<span class="sc">$</span>primary_assay   <span class="co"># which soloFeature is in counts(sce)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">altExpNames</span>(sce)              <span class="co"># ADT/HTO if present</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sce<span class="sc">$</span>SampleName)         <span class="co"># cells per sample</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">rowData</span>(sce))            <span class="co"># GENEID, SYMBOL, uniqueSymbol, ... + ambient profile per sample</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Cell names are <code>&lt;cell barcode&gt;_&lt;sample barcode if present&gt;</code>. The sample sheet columns are found in <code>colData(sce)</code>, together with the demultiplexing results (if any).</li>
@@ -3456,7 +3367,7 @@ Important
 <li>The workflow produces large intermediate files, roughly <strong>40-50 GB per sample</strong>. Once you are happy with the final SCE object remove them with:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j</span> 1 clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-j</span> 1 clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -3496,16 +3407,16 @@ fastq/GFB_1002_S2_L002_R1_001.fastq.gz  fastq/GFB_1002_S2_L002_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -3524,12 +3435,12 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span><span class="co"> # don&#39;t check length</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">17</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span><span class="co"> # don&#39;t check length</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">17</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">12</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -3557,16 +3468,16 @@ fastq/GFB_1004_S4_L001_R1_001.fastq.gz  fastq/GFB_1004_S4_L001_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hashtag_file</span><span class="kw">:</span><span class="at"> hashtags.tsv</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">translation</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/translation/3M-february-2018.txt.gz</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_cDNA_ADT</span><span class="kw">:</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trim_front1</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co"> # TotalSeq B: 10 bp before the 15 bp antibody barcode</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_len1</span><span class="kw">:</span><span class="at"> </span><span class="dv">15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hashtag_file</span><span class="kw">:</span><span class="at"> hashtags.tsv</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">translation</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/translation/3M-february-2018.txt.gz</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_cDNA_ADT</span><span class="kw">:</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">trim_front1</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co"> # TotalSeq B: 10 bp before the 15 bp antibody barcode</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max_len1</span><span class="kw">:</span><span class="at"> </span><span class="dv">15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3593,21 +3504,21 @@ fastq/GFB_2002_S2_L001_R1_001.fastq.gz  fastq/GFB_2002_S2_L001_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_SNP</span><span class="kw">:</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">vcf</span><span class="kw">:</span><span class="at"> &lt;path/to/genome1K.phase3.SNP_AF5e2.chr1toX.hg38.sorted.ncbi.vcf.bgz&gt;</span><span class="co"> # </span><span class="al">TODO</span><span class="co">: sciCORE path</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">donors</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span><span class="co"> # number of pooled donors per sample</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-7.0.0/lib/python/cellranger/barcodes/3M-february-2018.txt.gz</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_SNP</span><span class="kw">:</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">vcf</span><span class="kw">:</span><span class="at"> &lt;path/to/genome1K.phase3.SNP_AF5e2.chr1toX.hg38.sorted.ncbi.vcf.bgz&gt;</span><span class="co"> # </span><span class="al">TODO</span><span class="co">: sciCORE path</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">donors</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span><span class="co"> # number of pooled donors per sample</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3672,22 +3583,22 @@ fastq/GFB_2002_S2_L001_R1_001.fastq.gz  fastq/GFB_2002_S2_L001_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/3M-3pgex-may-2023_TRU.txt.gz</span><span class="co"> # </span><span class="al">TODO</span><span class="co">: verify file name</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">format</span><span class="kw">:</span><span class="at"> 10x_ocm</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB1</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB1_3M-3pgex-may-2023.txt                                                   </span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB2</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB2_3M-3pgex-may-2023.txt    </span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB3</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB3_3M-3pgex-may-2023.txt     </span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB4</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB4_3M-3pgex-may-2023.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/3M-3pgex-may-2023_TRU.txt.gz</span><span class="co"> # </span><span class="al">TODO</span><span class="co">: verify file name</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">format</span><span class="kw">:</span><span class="at"> 10x_ocm</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB1</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB1_3M-3pgex-may-2023.txt                                                   </span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB2</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB2_3M-3pgex-may-2023.txt    </span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB3</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB3_3M-3pgex-may-2023.txt     </span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">OB4</span><span class="kw">:</span><span class="at"> config/ocm_3pgex/OB4_3M-3pgex-may-2023.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-empty-content callout-titled">
@@ -3730,22 +3641,22 @@ fastq/GFB_3002_S2_L001_R1_001.fastq.gz  fastq/GFB_3002_S2_L001_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="at">barcodes</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">bd_cls1.csv</span><span class="kw">,</span><span class="at"> bd_cls2.csv</span><span class="kw">,</span><span class="at"> bd_cls3.csv</span><span class="kw">]</span><span class="at">                                                                                                     </span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span><span class="at">                              </span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex       </span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloAdapterSequence</span><span class="kw">:</span><span class="at"> NNNNNNNNNGTGANNNNNNNNNGACA             </span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 2_0_2_8 2_13_2_21 3_1_3_9                            </span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="dv">3_10_3_17</span><span class="at">                                </span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> 1MM</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="at">barcodes</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">bd_cls1.csv</span><span class="kw">,</span><span class="at"> bd_cls2.csv</span><span class="kw">,</span><span class="at"> bd_cls3.csv</span><span class="kw">]</span><span class="at">                                                                                                     </span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span><span class="at">                              </span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex       </span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloAdapterSequence</span><span class="kw">:</span><span class="at"> NNNNNNNNNGTGANNNNNNNNNGACA             </span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 2_0_2_8 2_13_2_21 3_1_3_9                            </span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="dv">3_10_3_17</span><span class="at">                                </span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> 1MM</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3792,37 +3703,37 @@ fastq/GFB_4001_S1_L002_R1_001.fastq.gz  fastq/GFB_4001_S1_L002_R2_001.fastq.gz  
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_flex</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38_flex</span><span class="kw">:</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">probe_set</span><span class="kw">:</span><span class="at"> &lt;path/to/Chromium_Human_Transcriptome_Probe_Set_v1.1.0_GRCh38-2024-A.csv&gt;</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filter_probes</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span><span class="co"> # drop probes with included = FALSE, as Cell Ranger does</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;path/to/Flex v2 cell barcode whitelist&gt;</span><span class="co"> # </span><span class="al">TODO</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> &lt;path/to/Flex v2 probe-barcode file&gt;</span><span class="co"> # </span><span class="al">TODO</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> FLEX</span></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex</span></span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 0_0_0_15 0_28_0_37</span><span class="co"> # cell barcode + sample barcode (v1: 0_0_0_15 0_28_0_35)</span></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0_16_0_27&quot;</span><span class="co">       # quoting avoids a parsing issue</span></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> EditDist_2</span></span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> CellRanger4</span></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> Gene</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span><span class="co">           # do not check length</span></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co">                  # deactivate default</span></span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span><span class="co">                # check with Summary.csv, see note below</span></span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloMultiMappers</span><span class="kw">:</span><span class="at"> Unique</span></span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outFilterMultimapNmax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">alignIntronMax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span><span class="co">                  # probe set reference only</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_flex</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38_flex</span><span class="kw">:</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">probe_set</span><span class="kw">:</span><span class="at"> &lt;path/to/Chromium_Human_Transcriptome_Probe_Set_v1.1.0_GRCh38-2024-A.csv&gt;</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">filter_probes</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span><span class="co"> # drop probes with included = FALSE, as Cell Ranger does</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;path/to/Flex v2 cell barcode whitelist&gt;</span><span class="co"> # </span><span class="al">TODO</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> &lt;path/to/Flex v2 probe-barcode file&gt;</span><span class="co"> # </span><span class="al">TODO</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> FLEX</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 0_0_0_15 0_28_0_37</span><span class="co"> # cell barcode + sample barcode (v1: 0_0_0_15 0_28_0_35)</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0_16_0_27&quot;</span><span class="co">       # quoting avoids a parsing issue</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> EditDist_2</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> CellRanger4</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> Gene</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span><span class="co">           # do not check length</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span><span class="co">                  # deactivate default</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span><span class="co">                # check with Summary.csv, see note below</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloMultiMappers</span><span class="kw">:</span><span class="at"> Unique</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outFilterMultimapNmax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">alignIntronMax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span><span class="co">                  # probe set reference only</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -3889,7 +3800,7 @@ Important
 <li><p>Create the conda environments:</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--sdm</span> conda <span class="at">--conda-create-envs-only</span> <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--sdm</span> conda <span class="at">--conda-create-envs-only</span> <span class="at">--conda-prefix</span> ~/snakemake_environments</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -3906,7 +3817,7 @@ Note
 </div>
 <!-- TODO: provide a minimal config + sample sheet for environment creation -->
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3915,13 +3826,13 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scicore/projects/<span class="op">&lt;</span>my_project<span class="op">&gt;</span>/</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.scicore.unibas.ch/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 <span class="co"># rules: workflow/rules, scripts: workflow/scripts, environments: workflow/envs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scicore/projects/<span class="op">&lt;</span>my_project<span class="op">&gt;</span>/</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://git.scicore.unibas.ch/DBM_bioinfo/ivanek/snakemake/workflows/starsolo_mapping_workflow.git</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> starsolo_mapping_workflow</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 <span class="co"># rules: workflow/rules, scripts: workflow/scripts, environments: workflow/envs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
 <li><code>soloFeatures: Gene GeneFull SJ Velocyto</code>; the first one, <code>Gene</code> (exon-union model), is the primary assay</li>
@@ -3945,7 +3856,7 @@ Note
 </ul>
 <!-- TODO: data location, number of donors -->
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3954,11 +3865,11 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&lt;</span>data_dir<span class="op">&gt;</span>/<span class="pp">*</span>.fastq.gz</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&lt;</span>data_dir<span class="op">&gt;</span>/<span class="pp">*</span>.fastq.gz</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -3967,6 +3878,64 @@ Note
 <pre data-filename="samples.tsv"><code>FileName1   FileName2   SampleName  ExternalSampleName  SampleGroup
 &lt;data_dir&gt;/&lt;sample1&gt;_L001_R1_001.fastq.gz   &lt;data_dir&gt;/&lt;sample1&gt;_L001_R2_001.fastq.gz   &lt;sample1&gt;   pool_capture1   pool
 &lt;data_dir&gt;/&lt;sample2&gt;_L001_R1_001.fastq.gz   &lt;data_dir&gt;/&lt;sample2&gt;_L001_R2_001.fastq.gz   &lt;sample2&gt;   pool_capture2   pool</code></pre>
+</div>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>config/config.yaml</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/3M-3pgex-may-2023_TRU.txt.gz</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_SNP</span><span class="kw">:</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">vcf</span><span class="kw">:</span><span class="at"> &lt;path/to/genome1K.phase3.SNP_AF5e2.chr1toX.hg38.sorted.ncbi.vcf.bgz&gt;</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">donors</span><span class="kw">:</span><span class="at"> &lt;number of donors&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-n</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-A</span> 12 <span class="st">&quot;demultiplex_SNP&quot;</span> logs/starsolo_mapping_config.yaml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-3" class="level2">
+<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
+<ul>
+<li>Create a sample sheet for the provided BD Rhapsody data, see <a href="#example-3-bd-rhapsody-dataset">Example 3</a>.</li>
+<li>Get the BD Rhapsody cell barcode whitelist (all CLS1-3 combinations) from sciCORE.</li>
+<li>Create the config file and run a dry-run. Which rules are executed that were not run in Task 2?</li>
+</ul>
+<!-- TODO: data location, link to BD whitelist on sciCORE -->
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>samples.tsv</strong></pre>
+</div>
+<pre data-filename="samples.tsv"><code>FileName1   FileName2   SampleName  ExternalSampleName  SampleGroup
+&lt;data_dir&gt;/&lt;sample1&gt;_R1_001.fastq.gz    &lt;data_dir&gt;/&lt;sample1&gt;_R2_001.fastq.gz    &lt;sample1&gt;   cartridge_ctrl  ctrl
+&lt;data_dir&gt;/&lt;sample2&gt;_R1_001.fastq.gz    &lt;data_dir&gt;/&lt;sample2&gt;_R2_001.fastq.gz    &lt;sample2&gt;   cartridge_treat treat</code></pre>
 </div>
 <div class="cell">
 <div class="code-with-filename">
@@ -3982,75 +3951,17 @@ Note
 <span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/3M-3pgex-may-2023_TRU.txt.gz</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;path/to/BD whitelist&gt;</span><span class="co"> # all CLS1-3 combinations (27 bp)</span></span>
 <span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">demultiplex_SNP</span><span class="kw">:</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
 <span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">vcf</span><span class="kw">:</span><span class="at"> &lt;path/to/genome1K.phase3.SNP_AF5e2.chr1toX.hg38.sorted.ncbi.vcf.bgz&gt;</span></span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">donors</span><span class="kw">:</span><span class="at"> &lt;number of donors&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">-n</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-A</span> 12 <span class="st">&quot;demultiplex_SNP&quot;</span> logs/starsolo_mapping_config.yaml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="task-3" class="level2">
-<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
-<ul>
-<li>Create a sample sheet for the provided BD Rhapsody data, see <a href="#example-3-bd-rhapsody-dataset">Example 3</a>.</li>
-<li>Get the BD Rhapsody cell barcode whitelist (all CLS1-3 combinations) from sciCORE.</li>
-<li>Create the config file and run a dry-run. Which rules are executed that were not run in Task 2?</li>
-</ul>
-<!-- TODO: data location, link to BD whitelist on sciCORE -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-29" class="callout-29-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>samples.tsv</strong></pre>
-</div>
-<pre data-filename="samples.tsv"><code>FileName1   FileName2   SampleName  ExternalSampleName  SampleGroup
-&lt;data_dir&gt;/&lt;sample1&gt;_R1_001.fastq.gz    &lt;data_dir&gt;/&lt;sample1&gt;_R2_001.fastq.gz    &lt;sample1&gt;   cartridge_ctrl  ctrl
-&lt;data_dir&gt;/&lt;sample2&gt;_R1_001.fastq.gz    &lt;data_dir&gt;/&lt;sample2&gt;_R2_001.fastq.gz    &lt;sample2&gt;   cartridge_treat treat</code></pre>
-</div>
-<div class="cell">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>config/config.yaml</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_ensdb112</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38</span><span class="kw">:</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">index</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_genomes/hg38/STAR</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gtf</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/snakemake_annotations/hg38/hg38_ensdb112_toUCSC_filtered.gtf</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> &lt;path/to/BD whitelist&gt;</span><span class="co"> # all CLS1-3 combinations (27 bp)</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;BD&quot;</span></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">27</span></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">28</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;BD&quot;</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">27</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIstart</span><span class="kw">:</span><span class="at"> </span><span class="dv">28</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -4069,7 +3980,7 @@ Note
 </ul>
 <!-- TODO: data location, link to probe set on sciCORE -->
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -4078,7 +3989,7 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -4092,36 +4003,36 @@ Note
 <div class="code-with-filename-file">
 <pre><strong>config/config.yaml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_flex</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38_flex</span><span class="kw">:</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">probe_set</span><span class="kw">:</span><span class="at"> &lt;path/to/Chromium_Human_Transcriptome_Probe_Set_v1.1.0_GRCh38-2024-A.csv&gt;</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/737K-fixed-rna-profiling.txt.gz</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/translation/probe-barcodes-fixed-rna-profiling-rna.txt</span></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> FLEX</span></span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex</span></span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 0_0_0_15 0_28_0_35</span><span class="co"> # v1: 8 bp sample barcode</span></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0_16_0_27&quot;</span></span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> EditDist_2</span></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> CellRanger4</span></span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> Gene</span></span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span></span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloMultiMappers</span><span class="kw">:</span><span class="at"> Unique</span></span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outFilterMultimapNmax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">alignIntronMax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_tag</span><span class="kw">:</span><span class="at"> hg38_flex</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_file</span><span class="kw">:</span><span class="at"> samples.tsv</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">genome</span><span class="kw">:</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">hg38_flex</span><span class="kw">:</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">probe_set</span><span class="kw">:</span><span class="at"> &lt;path/to/Chromium_Human_Transcriptome_Probe_Set_v1.1.0_GRCh38-2024-A.csv&gt;</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">barcodes</span><span class="kw">:</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">whitelist</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/737K-fixed-rna-profiling.txt.gz</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">samples</span><span class="kw">:</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> flex</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">file</span><span class="kw">:</span><span class="at"> /scicore/home/ivanek/GROUP/apps/cellranger-10.0.0/lib/python/cellranger/barcodes/translation/probe-barcodes-fixed-rna-profiling-rna.txt</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="fu">process_paired_reads</span><span class="kw">:</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">active</span><span class="kw">:</span><span class="at"> </span><span class="ch">True</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">library_type</span><span class="kw">:</span><span class="at"> FLEX</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="fu">STARsolo_GEX</span><span class="kw">:</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloType</span><span class="kw">:</span><span class="at"> CB_UMI_Complex</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBposition</span><span class="kw">:</span><span class="at"> 0_0_0_15 0_28_0_35</span><span class="co"> # v1: 8 bp sample barcode</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIposition</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0_16_0_27&quot;</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloCBmatchWLtype</span><span class="kw">:</span><span class="at"> EditDist_2</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">clipAdapterType</span><span class="kw">:</span><span class="at"> CellRanger4</span></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloFeatures</span><span class="kw">:</span><span class="at"> Gene</span></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloBarcodeReadLength</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloUMIlen</span><span class="kw">:</span><span class="at"> </span><span class="ch">False</span></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloStrand</span><span class="kw">:</span><span class="at"> Reverse</span></span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">soloMultiMappers</span><span class="kw">:</span><span class="at"> Unique</span></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">outFilterMultimapNmax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">alignIntronMax</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
